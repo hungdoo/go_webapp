@@ -2,9 +2,8 @@
 
 # Prerequisites
 
-docker
-docker-compose
-golang
+- Development: golang
+- Production: docker
 
 # Deployment
 ## Build Docker image for production environment
