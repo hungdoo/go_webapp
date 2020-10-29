@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Highest prime lower than target number lookup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+</head>
+
+<body>
+    <h1>Highest prime lower than target number lookup</h1>
+    <form action="/api/prime" method="post">
+        Target number:
+        <input type="text" name="target">
+        <br/>
+        <input type="submit" value="Submit">
+    </form>
+
+    <table>
+        <tr>
+        <th>Target</th>
+        <th>Highest prime number prior to Target</th>
+        </tr>
+        <td>Pigeon</td>
+        <td>Common in cities</td>
+        </tr>
+    </table>
+    <br/>
+
+    <script>
+        birdTable = document.querySelector("table")
+
+        fetch("/prime")
+        .then(response => response.json())
+        .then(birdList => {
+            // //Once we fetch the list, we iterate over it
+            // birdList.forEach(bird => {
+            // // Create the table row
+            // row = document.createElement("tr")
+
+            // // Create the table data elements for the species and
+            //             // description columns
+            // species = document.createElement("td")
+            // species.innerHTML = bird.species
+            // description = document.createElement("td")
+            // description.innerHTML = bird.description
+
+            // Add the data elements to the row
+            row.appendChild("species")
+            row.appendChild("description")
+            // Finally, add the row element to the table itself
+            birdTable.appendChild(row)
+            // })
+        })
+    </script>
+</body>
