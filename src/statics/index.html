@@ -5,37 +5,39 @@
     <title>Highest prime lower than target number lookup</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="statics/style.css">
 </head>
 
 <body>
-    <h1>Highest prime lower than target number lookup</h1>
-    <form onsubmit="return lookUp()">
-        Target number: 
-        <input type="text" id="lookup-target" required/>
-        <br/>
-        <i class="message hidden"></i>
-        <br/>
-        <input type="submit" value="Look up"/>
-    </form>
+    <div class="container">
+        <h1>Highest prime lower than target number lookup</h1>
+        <form class="lookup-form" onsubmit="return lookUp()">
+            Target number: 
+            <input type="text" id="lookup-target" required/>
+            <br/>
+            <i class="error-message hidden"></i>
+            <br/>
+            <input type="submit" value="Look up"/>
+        </form>
 
-    <table id="prime-table">
-        <tr>
-        <th>Target</th>
-        <th>Found Prime number</th>
-        </tr>
-    </table>
-    <br/>
-
+        <table id="prime-table">
+            <tr>
+            <th>Target</th>
+            <th>Found Prime number</th>
+            </tr>
+        </table>
+        <br/>
+    </div>
     <script>
         function lookUp() {
             let targetNo = Number(document.querySelector("#lookup-target").value);
             if (!Number.isInteger(targetNo)) {
-                let errMess = document.querySelector(".message.hidden");
+                let errMess = document.querySelector(".error-message.hidden");
                 errMess.textContent = "Input is not a valid Integer";
                 errMess.classList.remove("hidden");
                 return false;
             } else {
-                document.querySelector(".message").classList.add("hidden");
+                document.querySelector(".error-message").classList.add("hidden");
             }
             // request options
             const data = { target: targetNo};
