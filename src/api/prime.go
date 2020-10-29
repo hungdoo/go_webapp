@@ -44,7 +44,7 @@ func preLargestPrimeLookUp(target int) int {
 func PrimeHandler(w http.ResponseWriter, r *http.Request) {
 
 	var req requestData
-	res := responseMessage{0, "", http.StatusBadRequest}
+	var res responseMessage
 
 	err := json.NewDecoder(r.Body).Decode(&req)
 	if err != nil {

@@ -9,48 +9,60 @@
 
 <body>
     <h1>Highest prime lower than target number lookup</h1>
-    <form action="/api/prime" method="post">
-        Target number:
-        <input type="text" name="target">
+    <form onsubmit="return lookUp()">
+        Target number: 
+        <input type="text" id="lookup-target" required/>
         <br/>
-        <input type="submit" value="Submit">
+        <i class="message hidden"></i>
+        <br/>
+        <input type="submit" value="Look up"/>
     </form>
 
-    <table>
+    <table id="prime-table">
         <tr>
         <th>Target</th>
-        <th>Highest prime number prior to Target</th>
-        </tr>
-        <td>Pigeon</td>
-        <td>Common in cities</td>
+        <th>Found Prime number</th>
         </tr>
     </table>
     <br/>
 
     <script>
-        birdTable = document.querySelector("table")
+        function lookUp() {
+            let targetNo = Number(document.querySelector("#lookup-target").value);
+            if (!Number.isInteger(targetNo)) {
+                let errMess = document.querySelector(".message.hidden");
+                errMess.textContent = "Input is not a valid Integer";
+                errMess.classList.remove("hidden");
+                return false;
+            } else {
+                document.querySelector(".message").classList.add("hidden");
+            }
+            // request options
+            const data = { target: targetNo};
+            const options = {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            };
+            fetch("/api/prime", options)
+            .then(response => response.json())
+            .then(data => {
+                table = document.getElementById("prime-table");
+                row = document.createElement("tr");
 
-        fetch("/prime")
-        .then(response => response.json())
-        .then(birdList => {
-            // //Once we fetch the list, we iterate over it
-            // birdList.forEach(bird => {
-            // // Create the table row
-            // row = document.createElement("tr")
+                target = document.createElement("td");
+                target.innerHTML = targetNo;
 
-            // // Create the table data elements for the species and
-            //             // description columns
-            // species = document.createElement("td")
-            // species.innerHTML = bird.species
-            // description = document.createElement("td")
-            // description.innerHTML = bird.description
+                prime = document.createElement("td");
+                prime.innerHTML = data["prime"];
 
-            // Add the data elements to the row
-            row.appendChild("species")
-            row.appendChild("description")
-            // Finally, add the row element to the table itself
-            birdTable.appendChild(row)
-            // })
-        })
+                row.appendChild(target);
+                row.appendChild(prime);
+                table.appendChild(row);
+            });
+            return false;
+        }
     </script>
 </body>
